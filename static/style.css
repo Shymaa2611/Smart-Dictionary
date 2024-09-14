@@ -1,0 +1,54 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    max-width: 700px;
+}
+
+.card {
+    border-radius: 8px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.result-card {
+    background-color: #fdfdfe;
+    padding: 15px;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+ul.list-group {
+    margin-top: 10px;
+}
+
+.list-group-item {
+    background-color: #f8f9fa;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+
+
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#loading img {
+    width: 100px; 
+    height: 100px; 
+}

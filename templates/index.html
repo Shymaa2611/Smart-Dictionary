@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Definition</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="text-center mb-4">
+            <h1>Smart Dictionary</h1>
+            <p class="lead">Intelligent Word Exploration: From Definition to Contextual Use</p>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="post" action="/get_word_details" id="wordForm">
+                    <div class="form-group">
+                        <input type="text" name="word" class="form-control" placeholder="Enter a word" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Get Details</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            {% if word %}
+            <div class="card result-card shadow-lg p-3">
+                <h2>Word: <span class="text-primary">{{ word_name }}</span></h2>
+                <p><strong>Definition:</strong> {{ definition }}</p>
+                <p><strong>Antonym:</strong> {{ antonyms }}</p>
+                <p><strong>Word Type:</strong> {{ word_type }}</p>
+                <p><strong>Arabic Translation:</strong> {{ arabic_translation }}</p>
+                <p><strong>Example:</strong> {{ example }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="loading" style="display: none;">
+        <img src="/static/spinner.gif" alt="Loading...">
+    </div>
+
+    <script>
+        document.getElementById("wordForm").addEventListener("submit", function () {
+            document.getElementById("loading").style.display = "flex";
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
