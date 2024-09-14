@@ -46,9 +46,9 @@ Ensure that you have the following directories in your project:
 ## Download Models
 You need to download and place the fine-tuned BERT and Gamma models in the appropriate   
 directories.
-- Bert Model That Fine-tuned for POS  can download Model Checkpoint from : 
-- Gamma Model That Fine-tuned for Antonym can download Model Checkpoint from :
-- NLLB model That is used for egyptian translation can download Model Checkpoint from :
+- Bert Model That Fine-tuned for POS  can download Model Checkpoint from :https://drive.google.com/file/d/1NQ5Y4gUV2dLnmVH4QznQy2LTrC8JNDvd/view?usp=drive_link 
+- Gamma Model That Fine-tuned for Antonym can download Model Checkpoint from :https://drive.google.com/file/d/1NThgMZQLc4hWvLbzzki7IO3W9rPY3eYF/view?usp=drive_link
+- NLLB model That is used for egyptian translation can download Model Checkpoint from :https://drive.google.com/drive/folders/1VcZ4ZFHgIFyX6QuBmzPq6_x4y8QoVkp9?usp=drive_link
 
  
 ## Running the Application
