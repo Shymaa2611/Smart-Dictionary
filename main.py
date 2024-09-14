@@ -37,7 +37,6 @@ async def get_word_type(word: str):
 async def get_antonym(word: str):
     return get_word_antonym(word)
 
-
 def get_word_details(word: str):
     syn = wordnet.synsets(word)
     word_name = word
@@ -50,7 +49,7 @@ def get_word_details(word: str):
     return word_description
 
 @app.post("/get_word_details", response_class=HTMLResponse)
-async def define_word(request: Request):
+async def word_details(request: Request):
     form_data = await request.form()
     word = form_data.get("word", "").lower()
     word_details = await get_word_details(word) 
