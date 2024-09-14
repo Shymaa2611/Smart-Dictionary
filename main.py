@@ -48,11 +48,13 @@ def get_word_details(word: str):
     word_description = [word_name, definition, antonyms, pos, translated2arabic, example]
     return word_description
 
-@app.post("/get_word_details", response_class=HTMLResponse)
+from fastapi.responses import JSONResponse
+
+@app.post("/get_word_details")
 async def word_details(request: Request):
     form_data = await request.form()
     word = form_data.get("word", "").lower()
-    word_details = await get_word_details(word) 
+    word_details = get_word_details(word)
     word_name = word_details[0]
     definition = word_details[1]
     antonyms = word_details[2]
@@ -60,8 +62,7 @@ async def word_details(request: Request):
     arabic_translation = word_details[4]
     example = word_details[5]
 
-    return templates.TemplateResponse("index.html", {
-        "request": request,
+    return JSONResponse(content={
         "word": word_name,
         "definition": definition,
         "antonyms": antonyms,

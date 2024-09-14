@@ -6,6 +6,26 @@
     <title>Word Definition</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            display: none;
+        }
+
+        #loading img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
     <div class="container py-5">
@@ -16,36 +36,63 @@
 
         <div class="card shadow-sm">
             <div class="card-body">
-                <form method="post" action="/get_word_details" id="wordForm">
+                <form id="wordForm">
                     <div class="form-group">
-                        <input type="text" name="word" class="form-control" placeholder="Enter a word" required>
+                        <input type="text" id="wordInput" name="word" class="form-control" placeholder="Enter a word" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Get Details</button>
                 </form>
             </div>
         </div>
 
-        <div class="mt-5">
-            {% if word %}
+        <div class="mt-5" id="resultCard" style="display: none;">
             <div class="card result-card shadow-lg p-3">
-                <h2>Word: <span class="text-primary">{{ word_name }}</span></h2>
-                <p><strong>Definition:</strong> {{ definition }}</p>
-                <p><strong>Antonym:</strong> {{ antonyms }}</p>
-                <p><strong>Word Type:</strong> {{ word_type }}</p>
-                <p><strong>Arabic Translation:</strong> {{ arabic_translation }}</p>
-                <p><strong>Example:</strong> {{ example }}</p>
+                <h2>Word: <span class="text-primary" id="wordDisplay"></span></h2>
+                <p><strong>Definition:</strong> <span id="definitionDisplay"></span></p>
+                <p><strong>Antonym:</strong> <span id="antonymDisplay"></span></p>
+                <p><strong>Word Type:</strong> <span id="wordTypeDisplay"></span></p>
+                <p><strong>Arabic Translation:</strong> <span id="arabicTranslationDisplay"></span></p>
+                <p><strong>Example:</strong> <span id="exampleDisplay"></span></p>
             </div>
-            {% endif %}
         </div>
     </div>
 
-    <div id="loading" style="display: none;">
+    <div id="loading">
         <img src="/static/spinner.gif" alt="Loading...">
     </div>
 
     <script>
-        document.getElementById("wordForm").addEventListener("submit", function () {
+        document.getElementById("wordForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const word = document.getElementById("wordInput").value;
             document.getElementById("loading").style.display = "flex";
+
+            try {
+                const response = await fetch("/get_word_details", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ word })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("wordDisplay").textContent = data.word;
+                document.getElementById("definitionDisplay").textContent = data.definition;
+                document.getElementById("antonymDisplay").textContent = data.antonyms;
+                document.getElementById("wordTypeDisplay").textContent = data.word_type;
+                document.getElementById("arabicTranslationDisplay").textContent = data.arabic_translation;
+                document.getElementById("exampleDisplay").textContent = data.example.join(", ");
+                document.getElementById("resultCard").style.display = "block";
+            } catch (error) {
+                console.error("Error fetching word details:", error);
+                document.getElementById("loading").style.display = "none";
+            }
         });
     </script>
 
