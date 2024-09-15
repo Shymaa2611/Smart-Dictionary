@@ -2,6 +2,8 @@
 
 **Smart Dictionary** is a web application designed to provide comprehensive word details including definitions, examples, antonyms, translations to Arabic, and word types (e.g., noun, verb, adverb). The application utilizes FastAPI for the backend and Jinja for templating, and integrates fine-tuned BERT and Gamma models for its functionalities.
 
+![Demo](media/demo.gif)
+
 ## Features
 
 - **Word Definition:** Get the definition of a word.
