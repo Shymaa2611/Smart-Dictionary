@@ -9,6 +9,8 @@ from nltk.corpus import wordnet
 from transformers import pipeline
 from Model.inference_pos import get_type_word
 from Model.inference_antonym import get_word_antonym
+from fastapi.responses import JSONResponse
+
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -47,8 +49,6 @@ def get_word_details(word: str):
     translated2arabic = text_translation(word) 
     word_description = [word_name, definition, antonyms, pos, translated2arabic, example]
     return word_description
-
-from fastapi.responses import JSONResponse
 
 @app.post("/get_word_details")
 async def word_details(request: Request):
